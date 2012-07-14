@@ -47,6 +47,11 @@ p21 n = sum [a + b | a <- [2..n-1], let b = divs ! a, amicable a b]
 -- Problem 12
 -- Far too slow, need to redo
 -- list of all triangle numbers
---trinums = scanl (+) 1 [2..]
+-- trinums = scanl1 (+) [2..]
 
---p12 = head $ filter (\x -> (length . divisors) x > 500) trinums
+-- p12 = head $ filter (\x -> (length . divisors) x > 500) trinums
+
+-- Problem 30
+p30 n = sum $ filter cond [2..n]
+    where cond n = n == sum  (map (\x -> x^5)  (splitInt n))
+
