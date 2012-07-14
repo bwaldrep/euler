@@ -51,7 +51,24 @@ p21 n = sum [a + b | a <- [2..n-1], let b = divs ! a, amicable a b]
 
 -- p12 = head $ filter (\x -> (length . divisors) x > 500) trinums
 
+-- Problem 29
+p29 = length . nub $ [a^b | a <- [2..100], b <- [2..100]]
+
 -- Problem 30
 p30 n = sum $ filter cond [2..n]
     where cond n = n == sum  (map (\x -> x^5)  (splitInt n))
 
+-- Problem 55
+revnum :: Integer -> Integer
+revnum n = read $ reverse . show $ n
+
+palindrome :: Integer -> Bool
+palindrome n = n == revnum n
+
+lychrel :: Integer -> Integer -> Bool
+lychrel 0 _ = True
+lychrel i n = (not . palindrome) n && lychrel (i-1) (n + revnum n)
+
+p55 :: Integer -> Integer
+p55 n = length $ filter lwrap [1..n]
+    where lwrap n = lychrel 50 (n + revnum n)
