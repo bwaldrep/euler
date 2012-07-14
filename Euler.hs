@@ -58,6 +58,23 @@ p29 = length . nub $ [a^b | a <- [2..100], b <- [2..100]]
 p30 n = sum $ filter cond [2..n]
     where cond n = n == sum  (map (\x -> x^5)  (splitInt n))
 
+-- Problem 45
+trinums = map (\n -> round((n * (n+1))/2)) [1..]
+pennums = map (\n -> round((n * ((3*n)-1))/2)) [1..]
+hexnums = map (\n -> round(n*((2*n)-1))) [1..]
+
+-- lazy intersection that works with infinite lists
+infintersect :: [Int] -> [Int] -> [Int]
+infintersect (a:as) (b:bs) = if a == b then a : infintersect as bs else 
+                             if a < b then infintersect as (b:bs)
+                             else infintersect (a:as) bs
+infintersect _ _ = []
+
+p45 :: Int
+p45 = head $ filter (> 40755) combo
+    where combo = infintersect trinums combo2
+          combo2 = infintersect pennums hexnums
+
 -- Problem 55
 revnum :: Integer -> Integer
 revnum n = read $ reverse . show $ n
@@ -69,6 +86,6 @@ lychrel :: Integer -> Integer -> Bool
 lychrel 0 _ = True
 lychrel i n = (not . palindrome) n && lychrel (i-1) (n + revnum n)
 
-p55 :: Integer -> Integer
+p55 :: Integer -> Int
 p55 n = length $ filter lwrap [1..n]
     where lwrap n = lychrel 50 (n + revnum n)
