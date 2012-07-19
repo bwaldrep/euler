@@ -49,7 +49,7 @@ p21 n = sum [a + b | a <- [2..n-1], let b = divs ! a, amicable a b]
 -- list of all triangle numbers
 -- trinums = scanl1 (+) [2..]
 
--- p12 = head $ filter (\x -> (length . divisors) x > 500) trinums
+--p12 = head $ filter (\x -> (length . divisors) x > 500) trinums
 
 -- Problem 29
 p29 = length . nub $ [a^b | a <- [2..100], b <- [2..100]]
@@ -63,7 +63,7 @@ trinums = map (\n -> round((n * (n+1))/2)) [1..]
 pennums = map (\n -> round((n * ((3*n)-1))/2)) [1..]
 hexnums = map (\n -> round(n*((2*n)-1))) [1..]
 
--- lazy intersection that works with infinite lists
+-- lazy intersection that works with sorted infinite lists
 infintersect :: [Int] -> [Int] -> [Int]
 infintersect (a:as) (b:bs) = if a == b then a : infintersect as bs else 
                              if a < b then infintersect as (b:bs)
