@@ -51,6 +51,12 @@ p21 n = sum [a + b | a <- [2..n-1], let b = divs ! a, amicable a b]
 
 --p12 = head $ filter (\x -> (length . divisors) x > 500) trinums
 
+-- Problem 28
+p28 :: Integer -> Integer
+p28 n = 1 + ( sum ( map getbox [1..(n-3)] ))
+      where getbox x = (4 * (oddsquare x)) - (12 * x)
+            oddsquare x = ((2 * x) + 1) ^ 2
+
 -- Problem 29
 p29 = length . nub $ [a^b | a <- [2..100], b <- [2..100]]
 
