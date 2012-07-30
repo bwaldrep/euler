@@ -27,8 +27,8 @@ lli compFactor(lli num) {
   // have at least one prime factor less than cap. If it doesn't
   // then it is prime and we are done.
   lli current = num;
-  for(lli i = 2; i < cap; i++) {
-    if(lookup[i] && (i < current) && (current % i == 0)) {
+  for(lli i = 2; i < current; i++) {
+    if(lookup[i] && (current % i == 0)) {
       current = current / i;
       i--; //the sequence of prime factors may contain repeats
     }
