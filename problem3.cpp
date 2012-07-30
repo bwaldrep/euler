@@ -8,7 +8,7 @@ typedef long long int lli;
 typedef vector<bool> table;
 
 lli compFactor(lli num);
-lli firstFactor(lli num);
+lli firstFactor(lli num, table &lookup);
 void buildTable(lli cap, table &lookup);
 
 int main() {
@@ -18,19 +18,19 @@ int main() {
 }
 
 lli compFactor(lli num) {
+  table lookup;
+  buildTable(sqrt(num), lookup);
   lli ans = 1;
   lli current = num;
-  while(ans = firstFactor(current)) {
+  while(ans = firstFactor(current,lookup)) {
     current = current / ans;
   }
   return current;
 }
 
-lli firstFactor(lli num) {
-  table lookup;
-  buildTable(sqrt(num), lookup);
-  lli size = lookup.size();
-  for(lli i = 3; i < size; i += 2) {
+lli firstFactor(lli num, table &lookup) {
+  lli cap = sqrt(num);
+  for(lli i = 3; i < cap; i += 2) {
     if (lookup[i] && (num % i == 0)) {
       return i;
     }
