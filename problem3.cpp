@@ -5,11 +5,9 @@
 using namespace std;
 
 typedef long long int lli;
-typedef vector<bool> table;
 
 lli compFactor(lli num);
-lli firstFactor(lli num, table &lookup);
-void buildTable(lli cap, table &lookup);
+void buildTable(lli cap, vector<bool> &lookup);
 
 int main() {
   lli bignum = 600851475143;
@@ -18,27 +16,29 @@ int main() {
 }
 
 lli compFactor(lli num) {
-  table lookup;
-  buildTable(sqrt(num), lookup);
-  lli ans = 1;
+  // Composite numbers have at least one prime factor
+  // less than their square root
+  lli cap = sqrt(num);
+  // initialize lookup vector<bool>
+  vector<bool> lookup;
+  buildTable(cap,lookup);
+  // find the first prime factor, divide it from the starting
+  // number and repeat. If the result is composite it will also
+  // have at least one prime factor less than cap. If it doesn't
+  // then it is prime and we are done.
   lli current = num;
-  while(ans = firstFactor(current,lookup)) {
-    current = current / ans;
+  for(lli i = 2; i < cap; i++) {
+    if(lookup[i] && (i < current) && (current % i == 0)) {
+      current = current / i;
+      i--; // the sequence of prime factors may contain repeats
+    }
   }
   return current;
 }
 
-lli firstFactor(lli num, table &lookup) {
-  lli cap = sqrt(num);
-  for(lli i = 3; i < cap; i += 2) {
-    if (lookup[i] && (num % i == 0)) {
-      return i;
-    }
-  }
-  return 0;
-}
-
-void buildTable(lli cap, table &lookup) {
+void buildTable(lli cap, vector<bool> &lookup) {
+  // Build a lookup vector<bool> of all primes less
+  // than cap using a basic sieve
   lookup.resize(cap);
   lookup[0] = lookup[1] = false;
   for(lli i = 2; i < cap; i++) {
