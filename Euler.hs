@@ -45,11 +45,9 @@ p21 n = sum [a + b | a <- [2..n-1], let b = divs ! a, amicable a b]
             amicable a b = a < b && b < n && divs ! b == a
 
 -- Problem 12
--- Far too slow, need to redo
--- list of all triangle numbers
--- trinums = scanl1 (+) [2..]
-
---p12 = head $ filter (\x -> (length . divisors) x > 500) trinums
+p12 n = head $ filter (\x -> (divcount x) > 500) [1..n]
+    where divcount x = (divs ! x) * (divs ! (x+1))
+          divs = divarray n
 
 -- Problem 29
 p29 = length . nub $ [a^b | a <- [2..100], b <- [2..100]]
