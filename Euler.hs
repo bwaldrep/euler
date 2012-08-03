@@ -49,6 +49,12 @@ p12 n = head $ filter (\x -> (divcount x) > 500) [1..n]
     where divcount x = (divs ! x) * (divs ! (x+1))
           divs = divarray n
 
+-- Problem 28
+p28 :: Integer -> Integer
+p28 n = 1 + ( sum ( map getbox [1..(n-3)] ))
+      where getbox x = (4 * (oddsquare x)) - (12 * x)
+            oddsquare x = ((2 * x) + 1) ^ 2
+
 -- Problem 29
 p29 = length . nub $ [a^b | a <- [2..100], b <- [2..100]]
 
