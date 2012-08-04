@@ -8,6 +8,18 @@ import Data.Char
 import Data.List
 import qualified Data.Map as Map
 
+-- Problem 1
+p1 :: Int
+p1 = sum $ takeWhile stopcond vals
+  where stopcond x = 1000 > x
+        vals = filter isMult [1..1000]
+        isMult n = mod n 3 == 0 || mod n 5 == 0
+
+-- Problem 2
+p2 :: Int
+p2 = sum $ takeWhile (\x -> x < 4000000) vals
+  where vals = filter (\x -> x `mod` 2 == 0) fibs
+
 -- Problem 12
 p12 n = head $ filter (\x -> (divcount x) > 500) [1..n]
     where divcount x = (divs ! x) * (divs ! (x+1))

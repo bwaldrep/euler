@@ -23,6 +23,9 @@ divisors n = filter (\x -> 0 == rem n x) [1.. div n 2]
 divarray :: Int -> Array Int Int
 divarray n = array (1,n) [(i,(sum . divisors) i) | i <- [1..n]]
 
+-- Useful infinite lists
+fibs :: [Int]
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 trinums :: [Int]
 trinums = map (\n -> round((n * (n+1))/2)) [1..]
 pennums :: [Int]
